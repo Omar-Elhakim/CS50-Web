@@ -1,0 +1,14 @@
+body {
+    padding: 10px;
+}
+
+.img {
+    max-width: 300px;
+    height: auto;
+}
+
+.listing {
+    border: 2px solid lightgray;
+    border-radius: 30px;
+    padding: 10px;
+}

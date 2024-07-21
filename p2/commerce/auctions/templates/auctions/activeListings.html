@@ -1,0 +1,34 @@
+{%extends "auctions/layout.html" %}
+
+{%block title %}
+Active Listings
+{%endblock%}
+
+{%block body %}
+{% for listing in listings %}
+{% if listing.is_open %}
+<div class="listing">
+    <a class="nav-link" href="{% url 'listing' listing.id %}" style="border-bottom: 2ocm;">
+
+        <h1>{{listing.title}}</h1>
+
+        {%if listing.image %}
+        <!-- <img class="img" style="max-width:200px ;" src="{{MEDIA_ROOT}}{{listing.image.url}}" alt="this listing's image"> -->
+        <img class="img" src="{{listing.image}}" alt="not rendered">
+        {%endif%}
+
+        <p>{{listing.description}}</p>
+
+        {% if listing.current_bid == None %}
+        <strong>{{listing.starting_bid}}$</strong>
+        {%else %}
+        <strong>{{listing.current_bid.price}}$</strong>
+        {%endif%}
+    </a>
+</div>
+<br>
+{%endif%}
+{%empty%}
+There are no active listings.
+{%endfor%}
+{%endblock%}

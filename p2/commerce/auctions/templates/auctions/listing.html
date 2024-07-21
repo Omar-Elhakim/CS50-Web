@@ -1,0 +1,113 @@
+{%extends "auctions/layout.html"%}
+
+{%block title %}
+Listing
+{%endblock%}
+
+{%block body%}
+{% if not listing.is_open %}
+<h1><strong>This Auction is closed</strong></h1>
+{%endif%}
+<h1>{{listing.title}}</h1>
+
+{%if listing.image %}
+<!-- <img class="img" src="{{MEDIA_ROOT}}{{listing.image.url}}" alt="this listing's image"> -->
+<img class="img" src="{{listing.image}}" alt="not rendered">
+{%else%}
+<br>
+{%endif%}
+<p>Description: {{listing.description}}</p>
+
+{% if listing.category %}
+<p>Category: {{listing.category}}</p>
+{%endif%}
+
+{% if listing.is_open %}
+
+{% if listing.current_bid == None %}
+<strong>{{listing.starting_bid}}$</strong>
+{%else %}
+<strong>{{listing.current_bid.price}}$</strong>
+{%endif%}
+
+
+{% if listing.current_bid.bidder == user %}
+<br>
+You have the highest bid so far.
+{%endif%}
+
+<br>
+{%endif%}
+{% if message %}
+<strong style="color: red;">{{message}}</strong>
+{%endif%}
+
+{% if user == listing.owner and listing.is_open %}
+<form method="post">
+    {%csrf_token%}
+    <input hidden name="action" value="close">
+    <button class="btn btn-primary"> Close Auction</button>
+</form>
+{%endif%}
+
+{% if not listing.is_open and listing.current_bid.bidder == user %}
+<h3> You won this auction for {{listing.current_bid.price}}$ ! </h3>
+{%endif%}
+
+{% if user.is_authenticated and not user == listing.owner and listing.is_open %}
+<form method="post">
+    {%csrf_token%}
+    {{bidForm}}
+    <input hidden name="action" value="bid">
+    <button class="btn btn-primary"> Bid </button>
+</form>
+{% endif %}
+<br>
+{% if user.is_authenticated %}
+<!-- Watchlist -->
+{% if not added %}
+<form action="/listing/{{listing.id}}" method="post">
+    {%csrf_token%}
+    <input hidden name="user_id" , value="{{user.id}}">
+    <input hidden name="listing_id" , value="{{listing.id}}">
+    <input hidden name="action" value="addWatchlist">
+    <button class="btn btn-primary"> Add to my watchlist</button>
+</form>
+{% else %}
+<form action="/listing/{{listing.id}}" method="post">
+    {%csrf_token%}
+    <input hidden name="user_id" value="{{user.id}}">
+    <input hidden name="listing_id" value="{{listing.id}}">
+    <input hidden name="action" value="deleteWatchlist">
+    <button class="btn btn-primary">Remove from my watchlist</button>
+</form>
+{%endif%}
+{%endif%}
+<hr>
+<!-- Comments -->
+<h5>Comments</h2>
+
+    {% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        {{commentForm}}
+        <input hidden name="action" value="comment">
+        <button class="btn btn-primary">Comment</button>
+    </form>
+    {%endif%}
+
+    {% for comment in comments%}
+    <div>
+        {%if comment.user.id == user.id %}
+        <strong>You</strong>
+        {%elif comment.user.id == listing.owner.id %}
+        <strong>Author</strong>
+        {% else %}
+        <strong>{{comment.user.username}}</strong>
+        {%endif%}
+        <p>{{comment.content}}</p>
+    </div>
+    <hr>
+    {% endfor %}
+
+    {%endblock%}

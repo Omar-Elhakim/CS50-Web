@@ -1,0 +1,44 @@
+{%extends "auctions/layout.html" %}
+
+{%block title %}
+Watchlist
+{%endblock%}
+
+{%block body %}
+<h1>Your Watchlist</h1>
+{% for listing in listings %}
+<div class="listing">
+    <a class="nav-link" href="{% url 'listing' listing.id %}">
+
+        <h1>{{listing.title}}</h1>
+
+        {%if listing.image %}
+        <!-- <img class="img" style="max-width:200px ;" src="{{MEDIA_ROOT}}{{listing.image.url}}" alt="this listing's image"> -->
+        <img class="img" src="{{listing.image}}" alt="not rendered">
+        {%endif%}
+
+        <p>{{listing.description}}</p>
+
+        {% if listing.current_bid == None %}
+        <strong>{{listing.starting_bid}}</strong>
+        {%else %}
+        <strong>{{listing.current_bid.price}}</strong>
+        {%endif%}
+
+        <!-- Remove -->
+        <form action="watchlist" method="post">
+            {%csrf_token%}
+            <input hidden name="user_id" value="{{user.id}}">
+            <input hidden name="listing_id" value="{{listing.id}}">
+            <button class="btn btn-primary">Remove</button>
+        </form>
+
+    </a>
+
+</div>
+
+{%empty%}
+You have nothing in your watchlist.
+{%endfor%}
+
+{%endblock%}

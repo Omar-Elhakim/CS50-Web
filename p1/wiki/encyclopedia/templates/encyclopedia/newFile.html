@@ -1,0 +1,18 @@
+{% extends "encyclopedia/layout.html" %}
+{% block title %}
+New entry
+{% endblock %}
+{% block body %}
+<h1 style="margin-bottom: 20px;">Create a new entry</h1>
+
+<form action="submitedData/" method="post">
+    {% csrf_token %}
+    <label style="margin-right: 20px;">New entry title</label>
+    <input hidden name="editFlag" value="{{editFlag}}">
+    <input name="entryTitle" type="text" placeholder="Type Entry title here" value="{{entryTitle}}">
+    <h5 style="margin: 10px;">Type the entry data in Markdown</h5>
+    <textarea name="entryData" placeholder="Type here in Markdown"
+        style="width:30cm; height: 13cm; margin-top: 14px ;" name="entryData">{{ entryData }}</textarea>
+    <button>Submit</button>
+</form>
+{% endblock %}

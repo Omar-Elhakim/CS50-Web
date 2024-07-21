@@ -1,0 +1,114 @@
+body {
+    background-color: rgba(32,33,36,1);
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+.link-container {
+    position: absolute;
+    top: 0px;
+    right: 0px; /* Place container at top right corner */
+    display: flex; /* Enable flexbox for easy alignment */
+}
+a { 
+    margin-left: 10px;
+    display: block;
+    text-decoration:none;
+    color: white;
+}
+a:hover{
+    text-decoration:underline;
+}
+h1 {
+    text-align: center;
+    font-size: 90px;
+    position: relative;
+    top: 130px
+}
+.search-option{
+    display: block;
+    background: #202124;
+    border-color: transparent;
+    border: 1px solid #5f6368;
+    border-radius: 50px; /* Adjust the radius for desired roundness */
+    width: 584px;
+    height: 44px;
+    margin-bottom: 10px;
+    color: white;
+}
+.search-option:hover{
+    background: #303134;
+    box-shadow: 0 1px 6px 0 #171717;
+    border-color: transparent;
+}
+
+.search-container {
+    text-align: center;
+    position: absolute;
+    right:470px;
+    top:330px
+}
+
+.b {
+    background-color: #303134;
+    border: 1px solid #303134;
+    border-radius: 4px;
+    color: #e8eaed;
+    font-family: arial,sans-serif;
+    font-size: 14px;
+    margin: 11px 4px;
+    padding: 0 16px;
+    line-height: 27px;
+    height: 36px;
+    min-width: 54px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+}
+.b:hover {
+    box-shadow: 0 1px 3px rgba(23,23,23,0.24);
+    background-color: #303134;
+    border: 1px solid #5f6368;
+    color: #e8eaed;
+}
+
+#images-logo {
+    position: absolute;
+    top: 280px;
+    left: 860px;
+    color: #4487f6;
+    font: 16px/16px roboto-regular, arial, sans-serif;
+}
+h3 {
+    margin: 18px;
+    font-size: 20px;
+    margin-bottom: 50px;
+}
+label {
+    color: #f28b82;
+    margin: 45px;
+    font-size: 20px;
+}
+.advanced {
+    margin: 0px;
+    display: flex; /* Make the container a flexbox */
+    flex-direction: column;
+}
+.a > input[type="text"] {
+    border-radius: 1px;
+    border:0;
+    width: 550px;
+    position: absolute;
+    right:750px;
+    text-align: left;
+    background: #202124;
+    border: 1px solid #5f6368;
+    color: #bdc1c6;
+    height: 25px;
+    padding: 1px 8px;
+}
+.a {
+    margin: 30px;
+    font-size: 13px;
+    color: #969ba1;
+
+}
